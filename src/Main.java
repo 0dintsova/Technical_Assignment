@@ -4,28 +4,7 @@ import java.util.Scanner;
 public class Main {
     private static int presencePlayer = 0, presenceMonster = 0;
     static Scanner sc = new Scanner(System.in);
-    private static ArrayList<Creature> list = new ArrayList<>();
-
-    public static ArrayList<Creature> getList() {
-        return list;
-    }
-    // Реализацию опубликуйте в открытом репозитории на github. В readme репозитория оставьте свое имя пользователя в Telegram для связи.
-//            Условия:
-//            1) В игре есть Существа. К ним относятся Игрок и Монстры.
-//            2) У Существа есть параметры Атака и Защита. Это целые числа от 1 до 30.
-//            3) У Существа есть Здоровье. Это натуральное число от 0 до N. Если Здоровье становится равным 0,
-//            то Существо умирает. Игрок может себя исцелить до 4-х раз на 30% от максимального Здоровья.
-//            4) У Существа есть параметр Урон. Это диапазон натуральных чисел M - N. Например, 1-6.
-//
-//            5) Одно Существо может ударить другое по такому алгоритму:
-//            - Рассчитываем Модификатор атаки. Он равен разности Атаки атакующего и Защиты защищающегося плюс 1
-//            - Успех определяется броском N кубиков с цифрами от 1 до 6, где N - это Модификатор атаки. Всегда
-//            бросается хотя бы один кубик.
-//            - Удар считается успешным, если хотя бы на одном из кубиков выпадает 5 или 6
-//            - Если удар успешен, то берется произвольное значение из параметра Урон атакующего и вычитается из
-//            Здоровья защищающегося.
-//
-
+    private static final ArrayList<Creature> list = new ArrayList<>();
 
     public static void main(String[] args) {
         int type = 1;
@@ -97,17 +76,22 @@ public class Main {
                     //Бой пока у какого-нибудь существа здоровье станет меньше или равно 0
                     do{
                         monster.attack(player);
-                        if(player.health <= 0){
+
+                        if(player.getHealth() <= 0){
                             list.remove(player);
-                            return type;
-                        }
-                        player.attack(monster);
-                        if(monster.health <= 0){
-                            list.remove(monster);
+                            presencePlayer--;
                             return type;
                         }
 
-                    }while(monster.health > 0 && player.health > 0);
+                        player.attack(monster);
+
+                        if(monster.getHealth() <= 0){
+                            list.remove(monster);
+                            presenceMonster--;
+                            return type;
+                        }
+
+                    }while(monster.getHealth() > 0 && player.getHealth() > 0);
 
                 } else System.out.println("\n Некому биться\n Создайте существ!\n");
                 break;

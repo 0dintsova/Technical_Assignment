@@ -4,7 +4,7 @@
 </a>
 
  <a src = "https://github.com/0dintsova/Technical_Assignment_KotlinVersion">
-   <h3>Версия на Лщелшт</h3>
+   <h3>Версия на Kotlin</h3>
  </a>
 
 
